@@ -107,4 +107,15 @@ class FilmController extends Controller
         $count = is_array($films) ? count($films) : 0;
         return view('counter', ['count' => $count]);
     }
+
+    // Devuelve una vista con las películas ordenadas por año
+    public function sortFilmsByYear()
+    {
+        $films = FilmController::readFilms();
+        usort($films, function ($a, $b) {
+            return $a['year'] <=> $b['year'];
+        });
+        $title = "Listado de pelis ordenadas por año";
+        return view('films.list', ['films' => $films, 'title' => $title]);
+    }
 }
