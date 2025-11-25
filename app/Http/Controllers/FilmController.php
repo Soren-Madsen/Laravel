@@ -97,4 +97,14 @@ class FilmController extends Controller
     {
         return $this->listFilms(null, $genre);
     }
+
+
+     // Devuelve una vista con el total de películas
+
+    public function countFilms()
+    {
+        $films = FilmController::readFilms();
+        $count = is_array($films) ? count($films) : 0;
+        return view('counter', ['count' => $count]);
+    }
 }

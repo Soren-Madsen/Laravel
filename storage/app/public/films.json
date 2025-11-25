@@ -38,5 +38,13 @@
         "img_url": "https://pics.filmaffinity.com/As_bestas-275688233-large.jpg",
         "country": "España",
         "duration": "137 min."
+    },
+    {
+        "name": "Purple Rain",
+        "year": 1984,
+        "genre": "Musical",
+        "img_url": "https://upload.wikimedia.org/wikipedia/en/7/7b/Purple_Rain_%28film%29.png",
+        "country": "United States",
+        "duration": "111 min."
     }
 ]
