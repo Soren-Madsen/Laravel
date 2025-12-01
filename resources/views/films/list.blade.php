@@ -1,29 +1,41 @@
-<h1>{{$title}}</h1>
+@extends('layouts.master')
 
-@if(empty($films))
-    <FONT COLOR="red">No se ha encontrado ninguna película</FONT>
-@else
-    <div align="center">
-    <table border="1">
-        <tr>
-            @foreach($films as $film)
-                @foreach(array_keys($film) as $key)
-                    <th>{{$key}}</th>
-                @endforeach
-                @break
-            @endforeach
-        </tr>
+@section('title', $title ?? 'Lista de Películas')
 
-        @foreach($films as $film)
-            <tr>
-                <td>{{$film['name']}}</td>
-                <td>{{$film['year']}}</td>
-                <td>{{$film['genre']}}</td>
-                <td><img src={{$film['img_url']}} style="width: 100px; heigth: 120px;" /></td>
-               <td>{{$film['country']}}</td>
-               <td>{{$film['duration']}}</td>
-            </tr>
-        @endforeach
-    </table>
-</div>
-@endif
+@section('content')
+    <h1>{{ $title }}</h1>
+
+    @if(empty($films))
+        <span style="color:red">No se ha encontrado ninguna película</span>
+    @else
+        <div class="text-center">
+            <table class="table table-bordered table-sm mx-auto" style="width: auto;">
+                <thead>
+                    <tr>
+                        @foreach($films as $film)
+                            @foreach(array_keys($film) as $key)
+                                <th>{{ $key }}</th>
+                            @endforeach
+                            @break
+                        @endforeach
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($films as $film)
+                        <tr>
+                            <td>{{ $film['name'] }}</td>
+                            <td>{{ $film['year'] }}</td>
+                            <td>{{ $film['genre'] }}</td>
+                            <td><img src="{{ $film['img_url'] }}" style="width: 100px; height: 120px;" alt="img" /></td>
+                            <td>{{ $film['country'] }}</td>
+                            <td>{{ $film['duration'] }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    @endif
+@endsection
+
+@section('footer')
+@endsection
