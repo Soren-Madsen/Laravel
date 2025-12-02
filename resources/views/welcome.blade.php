@@ -22,7 +22,7 @@
     @if(session('status'))
         <div class="alert alert-success">{{ session('status') }}</div>
     @endif
-
+    @csrf
     <form method="POST" action="{{ route('createFilm') }}">
         <div>
             <label for="title">Nombre</label>
