@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FilmController;
+use App\Http\Middleware\ValidateUrl;
 use App\Http\Middleware\ValidateYear;
 use Illuminate\Support\Facades\Route;
 
@@ -31,13 +32,11 @@ Route::middleware('year')->group(function() {
     Route::get('films/count', [FilmController::class, 'countFilms'])->name('countFilms');
     // Route to sort films by year
     Route::get('films/sort/year', [FilmController::class, 'sortFilmsByYear'])->name('sortFilmsByYear');
-
     });
-
+});
+    Route::middleware('url')->group(function() {
     Route::group(['prefix' => 'filmin'], function () {
-        Route::post('film')
-            ->middleware
-            ->name('film');
+        Route::post('film', [FilmController::class, 'createFilm'])->name('film');
     });
 });
 

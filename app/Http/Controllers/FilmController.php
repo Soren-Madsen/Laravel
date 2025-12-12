@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 
 class FilmController extends Controller
 {
@@ -10,13 +11,15 @@ class FilmController extends Controller
     /**
      * Read films from storage
      */
-    public static function readFilms(): array
+  public static function readFilms(): array
     {
         $films = Storage::json('/public/films.json');
+ 
         return $films;
     }
+
     /**
-     * List films older than input year 
+     * List films older than input year
      * if year is not infomed 2000 year will be used as criteria
      */
     public function listOldFilms($year = null)
@@ -98,9 +101,14 @@ class FilmController extends Controller
         return $this->listFilms(null, $genre);
     }
 
+    public function listAllFilms()
+    {
+        $films = FilmController::readFilms();
+        $title = "Listado de todas las pelis";
+        return view('films.list', ['films' => $films, 'title' => $title]);
+    }
 
      // Devuelve una vista con el total de películas
-
     public function countFilms()
     {
         $films = FilmController::readFilms();
@@ -117,5 +125,30 @@ class FilmController extends Controller
         });
         $title = "Listado de pelis ordenadas por año";
         return view('films.list', ['films' => $films, 'title' => $title]);
+    }
+
+    // Crea una nueva película y la guarda en el storage
+     public function createFilm(Request $request)
+    {
+        $films = FilmController::readFilms();
+        $newFilm = [
+            'name' => $request->input('name'),
+            'year' => $request->input('year'),
+            'genre' => $request->input('genre'),
+            'country' => $request->input('country'),
+            'duration' => $request->input('duration'),
+            'img_url' => $request->input('img_url'),
+        ];
+        
+        foreach ($films as $film) {
+            if ($film['name'] === $newFilm['name']) {
+                return view('welcome', ['error' => 'Film already exists']);
+            }
+        }
+
+        $films[] = $newFilm;
+        Storage::put('/public/films.json', json_encode($films));
+
+        return $this->listAllFilms();
     }
 }

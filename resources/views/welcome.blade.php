@@ -3,7 +3,6 @@
 @section('title', 'Lista de Películas')
 
 @section('header')
-    <!-- Optional per-page header -->
 @endsection
 
 @section('content')
@@ -18,15 +17,19 @@
     </ul>
 
     <h2 class="mt-4">Añadir nueva película</h2>
-
-    @if(session('status'))
-        <div class="alert alert-success">{{ session('status') }}</div>
+    
+  @if (isset($success))
+        <div class="alert alert-success">{{ $success }}</div>
     @endif
-    @csrf
-    <form method="POST" action="{{ route('createFilm') }}">
+    @if (isset($error))
+        <div class="alert alert-danger">{{ $error }}</div>
+    @endif
+
+    <form method="POST" action="{{route('film')}}">
+        @csrf
         <div>
             <label for="title">Nombre</label>
-            <input id="title" name="title" type="text" required>
+            <input id="title" name="name" type="text" required>
         </div>
         <div>
             <label for="year">Año</label>
@@ -38,11 +41,11 @@
         </div>
         <div>
             <label for="pais">País</label>
-            <input id="pais" name="pais" type="text" required>
+            <input id="pais" name="country" type="text" required>
         </div>
         <div>
             <label for="duracion">Duración</label>
-            <input id="duracion" name="duracion" type="text" required>
+            <input id="duracion" name="duration" type="text" required>
         </div>
         <div>
             <label for="img_url">Imagen URL</label>
@@ -55,6 +58,5 @@
 @endsection
 
 @section('footer')
-    <!-- Optional per-page footer -->
 @endsection
     
