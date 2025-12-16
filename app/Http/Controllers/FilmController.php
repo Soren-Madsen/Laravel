@@ -88,6 +88,13 @@ class FilmController extends Controller
         return view("films.list", ["films" => $films_filtered, "title" => $title]);
     }
 
+    public function listAllFilms()
+    {
+        $films = FilmController::readFilms();
+        $title = "Listado de todas las pelis";
+        return view('films.list', ['films' => $films, 'title' => $title]);
+    }
+
     // Lista peliculas por año
     public function listFilmsByYear($year = null)
     {
@@ -99,13 +106,6 @@ class FilmController extends Controller
     public function listFilmsByGenre($genre = null)
     {
         return $this->listFilms(null, $genre);
-    }
-
-    public function listAllFilms()
-    {
-        $films = FilmController::readFilms();
-        $title = "Listado de todas las pelis";
-        return view('films.list', ['films' => $films, 'title' => $title]);
     }
 
      // Devuelve una vista con el total de películas
@@ -128,27 +128,42 @@ class FilmController extends Controller
     }
 
     // Crea una nueva película y la guarda en el storage
-     public function createFilm(Request $request)
+    public function createFilm(Request $request)
     {
+        $name = trim((string) $request->input('name'));
+
+        
+        if ($this->isFilm($name)) {
+            return redirect('/')->with('error', 'La película ya existe.');
+        }
+
         $films = FilmController::readFilms();
         $newFilm = [
-            'name' => $request->input('name'),
+            'name' => $name,
             'year' => $request->input('year'),
             'genre' => $request->input('genre'),
             'country' => $request->input('country'),
             'duration' => $request->input('duration'),
             'img_url' => $request->input('img_url'),
         ];
-        
-        foreach ($films as $film) {
-            if ($film['name'] === $newFilm['name']) {
-                return view('welcome', ['error' => 'Film already exists']);
-            }
-        }
 
         $films[] = $newFilm;
         Storage::put('/public/films.json', json_encode($films));
 
         return $this->listAllFilms();
+    }
+    public function isFilm(string $name)    
+    {
+        if ($name === '') {
+            return false;
+        }
+
+        $films = FilmController::readFilms();
+        foreach ($films as $film) {
+            if ($film['name'] === $name) {
+                return true;
+            }
+        }
+        return false;
     }
 }

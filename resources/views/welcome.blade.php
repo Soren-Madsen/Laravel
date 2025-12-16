@@ -18,10 +18,15 @@
 
     <h2 class="mt-4">Añadir nueva película</h2>
     
-  @if (isset($success))
+    @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @elseif (isset($success))
         <div class="alert alert-success">{{ $success }}</div>
     @endif
-    @if (isset($error))
+
+    @if (session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+    @elseif (isset($error))
         <div class="alert alert-danger">{{ $error }}</div>
     @endif
 
@@ -49,7 +54,7 @@
         </div>
         <div>
             <label for="img_url">Imagen URL</label>
-            <input id="img_url" name="img_url" type="url" required>
+            <input id="img_url" name="img_url" type="text" required>
         </div>
         <div>
             <button type="submit">Añadir Película</button>
