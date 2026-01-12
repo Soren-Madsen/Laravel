@@ -3,21 +3,21 @@
 @section('title', $title ?? 'Lista de Películas')
 
 @section('content')
-    <h1>{{ $title }}</h1>
+    <h1 class="mt-4">{{ $title }}</h1>
 
     @if(empty($films))
-        <span style="color:red">No se ha encontrado ninguna película</span>
+        <div class="alert alert-warning">No se ha encontrado ninguna película</div>
     @else
-        <div class="text-center">
-            <table class="table table-bordered table-sm mx-auto" style="width: auto;">
-                <thead>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-sm">
+                <thead class="thead-dark">
                     <tr>
-                        @foreach($films as $film)
-                            @foreach(array_keys($film) as $key)
-                                <th>{{ $key }}</th>
-                            @endforeach
-                            @break
-                        @endforeach
+                        <th>Nombre</th>
+                        <th>Año</th>
+                        <th>Género</th>
+                        <th>Imagen</th>
+                        <th>País</th>
+                        <th>Duración</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,7 +26,7 @@
                             <td>{{ $film['name'] }}</td>
                             <td>{{ $film['year'] }}</td>
                             <td>{{ $film['genre'] }}</td>
-                            <td><img src="{{ $film['img_url'] }}" style="width: 100px; height: 120px;" alt="img" /></td>
+                            <td><img src="{{ $film['img_url'] }}" class="img-thumbnail" style="max-width:100px; height:auto;" alt="{{ $film['name'] }}" /></td>
                             <td>{{ $film['country'] }}</td>
                             <td>{{ $film['duration'] }}</td>
                         </tr>
