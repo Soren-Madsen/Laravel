@@ -14,7 +14,7 @@ class ValidateUrl
      */
     public function handle(Request $request, Closure $next)
     {
-        $url = $request->input('img_url');
+        $url = $request->input('url');
 
         if ($url) {
             // Basic URL validation
