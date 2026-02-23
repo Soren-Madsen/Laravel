@@ -4,7 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Faker\Factory as Faker;
+use App\Models\Film;
+use App\Models\Actor;
 use Illuminate\Support\Facades\DB;
 
 class FilmActorSeeder extends Seeder
@@ -14,20 +15,24 @@ class FilmActorSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = Faker::create();
+        $films = Film::all();
+        $actors = Actor::all();
 
-        $films = DB::table('films')->pluck('id')->toArray();
-        $actors = DB::table('actors')->pluck('id')->toArray();
+        if ($films->isEmpty() || $actors->isEmpty()) {
+            return;
+        }
 
-        foreach ($films as $filmId) {
-            $numActors = $faker->numberBetween(1, 3);
+        foreach ($films as $film) {
+            // Randomly assign 1-3 actors to each film
+            $numActors = fake()->numberBetween(1, 3);
             
-            $randomActors = $faker->randomElements($actors, $numActors);
+            // Get random actors
+            $randomActors = $actors->random(min($numActors, $actors->count()));
 
-            foreach ($randomActors as $actorId) {
+            foreach ($randomActors as $actor) {
                 DB::table('films_actors')->insert([
-                    'film_id' => $filmId,
-                    'actor_id' => $actorId,
+                    'film_id' => $film->id,
+                    'actor_id' => $actor->id,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
