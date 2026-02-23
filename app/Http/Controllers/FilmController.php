@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use App\Models\Film;
 
 class FilmController extends Controller
 {
@@ -13,8 +14,8 @@ class FilmController extends Controller
      */
   public static function readFilms(): array
     {
-        $films = Storage::json('/public/films.json');
- 
+        $films = Film::all();
+        dd($films);
         return $films;
     }
 
