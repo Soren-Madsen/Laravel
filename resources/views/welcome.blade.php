@@ -20,6 +20,15 @@
         </div>
 
         <div class="col-md-6">
+            <h1 class="mt-4">Lista de Actores</h1>
+            <ul class="list-group">
+                <li class="list-group-item"><a href="{{ route('actors') }}">Listado de actores</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-12">
             <h2 class="mt-4">Añadir nueva película</h2>
 
             @if (session('success'))
