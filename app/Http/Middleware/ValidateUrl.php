@@ -9,12 +9,12 @@ class ValidateUrl
 {
     /**
      * Handle an incoming request.
-     * Validate that a 'url' input is present and is a valid URL.
+     * Validate that a 'img_url' input is present and is a valid URL.
      * If not valid, redirect to welcome view with an error message.
      */
     public function handle(Request $request, Closure $next)
     {
-        $url = $request->input('url');
+        $url = $request->input('img_url');
 
         if ($url) {
             // Basic URL validation
