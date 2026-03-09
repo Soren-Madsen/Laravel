@@ -24,6 +24,27 @@
             <ul class="list-group">
                 <li class="list-group-item"><a href="{{ route('actors') }}">Listado de actores</a></li>
             </ul>
+
+            <h2 class="mt-4">Buscar actores por década</h2>
+            <form method="GET">
+                <div class="form-group">
+                    <label for="decade">Selecciona una década:</label>
+                    <select id="decade" name="decade" class="form-control" required onchange="this.form.action='{{ url('actorout/listActorsByDecade') }}/' + this.value;">
+                        <option value="">-- Selecciona una década --</option>
+                        <option value="1950">1950s (1950-1959)</option>
+                        <option value="1960">1960s (1960-1969)</option>
+                        <option value="1970">1970s (1970-1979)</option>
+                        <option value="1980">1980s (1980-1989)</option>
+                        <option value="1990">1990s (1990-1999)</option>
+                        <option value="2000">2000s (2000-2009)</option>
+                        <option value="2010">2010s (2010-2019)</option>
+                        <option value="2020">2020s (2020-2029)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Buscar Actores</button>
+                </div>
+            </form>
         </div>
     </div>
 
