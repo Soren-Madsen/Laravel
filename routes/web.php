@@ -41,8 +41,11 @@ Route::middleware('year')->group(function() {
     });
 });
 
-Route::group(['prefix' => 'actorout'], function () {
-    Route::get('actors', [ActorController::class, 'listActors'])->name('actors');
+Route::middleware('year')->group(function() {
+    Route::group(['prefix' => 'actorout'], function () {
+        Route::get('actors', [ActorController::class, 'listActors'])->name('actors');
+        Route::get('listActorsByDecade/{year}', [ActorController::class, 'listActorsByDecade'])->name('actorsByDecade');
+    });
 });
 
 

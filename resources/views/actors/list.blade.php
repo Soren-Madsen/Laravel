@@ -16,7 +16,6 @@
                         <th>Apellido</th>
                         <th>Fecha de Nacimiento</th>
                         <th>País</th>
-                        <th>Imagen</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,7 +25,6 @@
                             <td>{{ $actor->surname }}</td>
                             <td>{{ $actor->birthdate ? $actor->birthdate->format('d/m/Y') : 'N/A' }}</td>
                             <td>{{ $actor->country }}</td>
-                            <td><img src="{{ $actor->img_url }}" class="img-thumbnail" style="max-width:100px; height:auto;" alt="{{ $actor->name }}" /></td>
                         </tr>
                     @endforeach
                 </tbody>
