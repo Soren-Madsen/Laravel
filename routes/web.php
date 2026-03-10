@@ -48,6 +48,10 @@ Route::middleware('year')->group(function() {
     });
 });
 
+Route::group(['prefix' => 'actorout'], function () {
+    Route::get('countActors', [ActorController::class, 'countActors'])->name('countActors');
+});
+
 
 
 

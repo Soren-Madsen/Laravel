@@ -37,4 +37,16 @@ class ActorController extends Controller
         
         return view('actors.list', ['actors' => $actors, 'title' => $title]);
     }
+
+    /**
+     * Count total number of actors in the database
+     * 
+     * @return \Illuminate\View\View
+     */
+    public function countActors()
+    {
+        $count = Actor::count();
+        
+        return view('actors.count', ['count' => $count]);
+    }
 }

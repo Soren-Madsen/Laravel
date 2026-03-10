@@ -23,6 +23,7 @@
             <h1 class="mt-4">Lista de Actores</h1>
             <ul class="list-group">
                 <li class="list-group-item"><a href="{{ route('actors') }}">Listado de actores</a></li>
+                <li class="list-group-item"><a href="{{ route('countActors') }}">Contador de actores</a></li>
             </ul>
 
             <h2 class="mt-4">Buscar actores por década</h2>
