@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Film;
+use App\Models\Actor;
 
 class FilmController extends Controller
 {
@@ -130,5 +131,17 @@ class FilmController extends Controller
         }
 
         return Film::where('name', $name)->exists();
+    }
+
+    /**
+     * API: return all films with their corresponding actors as JSON
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index()
+    {
+        $films = Film::with('actors')->get();
+
+        return response()->json(['films' => $films], 200);
     }
 }
