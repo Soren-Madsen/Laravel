@@ -30,7 +30,7 @@ class FilmActorSeeder extends Seeder
             $randomActors = $actors->random(min($numActors, $actors->count()));
 
             foreach ($randomActors as $actor) {
-                DB::table('films_actors')->insert([
+                DB::table('actors_films')->insert([
                     'film_id' => $film->id,
                     'actor_id' => $actor->id,
                     'created_at' => now(),
